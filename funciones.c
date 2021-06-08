@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h> 
 #include <pthread.h>
-#include <string.h>
 #include "estructuras.h"
 #include "funciones.h"
 

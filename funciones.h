@@ -2,9 +2,12 @@
 #ifndef funciones_h_
 #define funciones_h_
 
-#include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
 
 //Cabeceras
 int leerArchivo(char * pathname , int filas, int columnas,float * buffer,int N);

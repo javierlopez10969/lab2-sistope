@@ -19,10 +19,10 @@ Entradas que recibe este laboratorio:
 Para ejecutar el código sin mostrar nada por pantalla su bandera debe estar en 0, por default es cero, asi que si no ingresa nada quedará en 0.
 
 
-### `./lab1 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2`
+### `/lab2 -I cameraman_256x256.raw -O imagen_salida.raw -M 256 -N 256 -r 2 -g 90`
 
 Para mostrar las entradas por pantalla ejecute :  
 
-### `./lab1 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2 -b 1`
+### `/lab2 -I cameraman_256x256.raw -O imagen_salida.raw -M 256 -N 256 -r 2 -g 90 -b`
 
 Si no entrega alguna de las entradas el programa no correrá. Tampoco correrá en caso de tener una cantidad distinta entre filas y columnas.

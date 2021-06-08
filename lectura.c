@@ -4,9 +4,9 @@
 #define ESCRITURA 1
 
 int main(int argc, char** argv){
-    printf("HOLA");
     //Nombre de la imagen
-    char bufferNombre[50] = argv[1];
+    char bufferNombre[50];
+    strcpy(bufferNombre, argv[1]);
     //recibir las variables y cambiarlas desde char a entero
     int filas = atoi(argv[3]); int columnas = atoi(argv[4]);
     int N = (filas * columnas * 4);
@@ -15,8 +15,7 @@ int main(int argc, char** argv){
     float *buffer = (float *)malloc(sizeof(float) * N);
     //Leer la imagen
     leerArchivo(bufferNombre, filas, columnas, buffer, N);
-    
-
+    //printBuffer(filas,columnas,buffer);
     //Creacion pipe
     int *pipe1 = (int*)malloc(sizeof(int) * 2);
     if(pipe(pipe1) == -1){

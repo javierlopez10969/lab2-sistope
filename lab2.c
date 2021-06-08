@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     opterr = 0;
     opterr += 1;
     //el siguiente ciclo se utiliza para recibir los parametros de entrada usando getopt
-    while ((c = getopt(argc, argv, "I:Z:S:M:N:r:b:")) != -1)
+    while ((c = getopt(argc, argv, "I:O:M:N:r:g:b:")) != -1)
         switch (c)
         {
         case 'I':
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
     }
 
 
-    //creación de pipe
+    //creación de un nuevo proceso
     //definir variables para pipe
     int fd[2];
     pipe(fd);
@@ -167,9 +167,10 @@ int main(int argc, char **argv)
         sprintf(buffGrados, "%d", grados);
         sprintf(buffFlag, "%d", bandera);
         printf("soy el hijo y escribi el mensaje\n");
-        char *args[]={"./lectura.c", nombreImagen, imagenSalida, buffFilas, buffColumnas, buffFactor, buffGrados, buffFlag, NULL};     
+        char *args[9]={"./lectura", nombreImagen, imagenSalida, buffFilas, buffColumnas, buffFactor, buffGrados, buffFlag, NULL};     
         execvp(args[0],args);
     }
+    
     return 0;
 }
 
