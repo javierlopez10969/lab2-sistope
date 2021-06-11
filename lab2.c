@@ -23,7 +23,6 @@ zoom-in, ejecuci´on finalizada.
 #define LECTURA 0
 #define ESCRITURA 1
 
- 
 int main(int argc, char **argv)
 {
     char *nombreImagen = NULL;
@@ -97,28 +96,7 @@ int main(int argc, char **argv)
         printf("Nombre imagen de entrada : %s \n Imagen salida : %s \n  filas : %d \n columnas : %d \n factor : %d \n bandera : %d\n",
         nombreImagen, imagenSalida, filas, columnas, factor, bandera);
         }
-
-        /*
-        //Tamaño de bytes (N)
-        int N = (filas * columnas * 4);
-        float *buffer = (float *)malloc(sizeof(float) * N);
-        leerArchivo(nombreImagen, filas, columnas, buffer, N);
-        */
-        /*
-        //Procesar el zoom in
-        float *zoom = NULL;
-        zoomIN(filas, columnas, buffer, &zoom, factor, N);
-        //printBuffer(filas*factor, columnas*factor, zoom);
-        escribirImagen(imagenSalida, filas * factor, columnas * factor, zoom, N * factor * factor);
-        //./lab1 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2 -b 1
-        //liberar memoria dinamica
-        free(buffer);
-        free(zoom);
-        free(imagenSalida);
-        */
     }
-
-
     //creación de un nuevo proceso
     //definir variables para pipe
     int fd[2];
@@ -132,7 +110,7 @@ int main(int argc, char **argv)
     int pid1= fork();
     //se cumple la condición cuando falla la creación de un nuevo proceso
     if(pid1 < 0){
-        printf("fallo la creación de proceso (fork)");
+        if (bandera== 1)printf("fallo la creación de proceso (fork)");
         return 1;
     }
     //se cumple la condición solo para un proceso "padre"
@@ -142,12 +120,14 @@ int main(int argc, char **argv)
        
         close(fd[ESCRITURA]);
         num = read(fd[LECTURA], bufferSalida, sizeof(char)*32);
+        if (bandera== 1){
+            printf("padre lee %d bytes: %s \n", num, bufferSalida);
+            printf("soy el padre y leí el mensaje\n");
+        }
         
-        printf("padre lee %d bytes: %s \n", num, bufferSalida);
-        printf("soy el padre y leí el mensaje\n");
         wait(NULL);
     }
-    //se cumple la condición solo para un proceso "hijo" (pid == 0)
+    //Si se cumple la condición solo para un proceso "hijo" (pid == 0)
     //Como soy hijo debo realizar el excev para ir a un nuevo proceso de lectura.
     else{
         //cerrar el fd de lectura
@@ -166,14 +146,12 @@ int main(int argc, char **argv)
         sprintf(buffFactor, "%d", factor);
         sprintf(buffGrados, "%d", grados);
         sprintf(buffFlag, "%d", bandera);
-        printf("soy el hijo y escribi el mensaje\n");
+        if (bandera== 1)printf("soy el hijo y escribi el mensaje\n");
         char *args[9]={"./lectura", nombreImagen, imagenSalida, buffFilas, buffColumnas, buffFactor, buffGrados, buffFlag, NULL};     
         execvp(args[0],args);
     }
-    
     return 0;
 }
-
 //EJEMPLO DE USO
 // make
 // ./lab2 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2

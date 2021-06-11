@@ -129,9 +129,6 @@ void zoomIN(int filas, int columnas,float * buffer , float ** zoom,int factor, i
         z = k;
 
     }
-    
-
-
     //printBuffer(filas*factor,columnas*factor,newBuffer);
     *zoom = bufferFinal; 
 }

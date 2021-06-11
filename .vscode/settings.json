@@ -4,6 +4,7 @@
         "array": "c",
         "string": "c",
         "string_view": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "funciones.h": "c"
     }
 }
