@@ -1,2 +1,6 @@
-funciones.o: funciones.c estructuras.h funciones.h
+funciones.o: funciones.c funciones.h
 lab2.o: lab2.c funciones.h
+suavizado.o: suavizado.c funciones.h
+zoom.o: zoom.c funciones.h
+lectura.o: lectura.c funciones.h
+rotacion.o: rotacion.c funciones.h

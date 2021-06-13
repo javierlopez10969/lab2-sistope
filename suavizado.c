@@ -39,7 +39,6 @@ int main(int argc, char **argv){
     //Proceso fork crea hijo    
     int pid_rotacion;    
     crearProceso(&pid_rotacion);
-    printf("pid : %d\n",pid_rotacion);
     if(pid_rotacion  == -1){
         printf("Error en syscall FORK\n");
         exit(-1);

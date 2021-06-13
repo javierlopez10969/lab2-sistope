@@ -19,10 +19,11 @@ int main(int argc, char **argv){
     int filas = atoi(argv[2]);
     int columnas = atoi(argv[3]);
     int factor = atoi(argv[4]);
+    int grados = atoi(argv[5]);
     int flag = atoi(argv[6]);
     int N = (filas * columnas * factor * factor * 4);
     float *buffer = (float *)malloc(sizeof(float) * N);
-
+    float * rotado = NULL;
     if (flag==1){printf("Proceso Rotación y escritura\n");
     printf("filas : %d columnas : %d \n",columnas*factor,filas*factor);
     printf("Voy a leer el buffer\n");}
@@ -36,7 +37,6 @@ int main(int argc, char **argv){
     };
     fflush(STDIN_FILENO);
     if (flag==1)printf("Buffer leído \n");
-    float * rotado = NULL;
-    //rotacion(filas * factor, columnas* factor,buffer , &rotado, N);
-    escribirImagen(nombreSalida,filas*factor, columnas*factor,buffer,N);
+    rotar(filas * factor,columnas * factor,grados,buffer , &rotado,N,flag);
+    escribirImagen(nombreSalida,filas*factor, columnas*factor,rotado,N,flag);
 }

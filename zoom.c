@@ -30,18 +30,15 @@ int main(int argc, char **argv)
     int i = 0;
     while(read(STDIN_FILENO, rBuff, sizeof(float)) > 0){
         buffer[i] = rBuff[0];
-        //printf("%d.-%f - ",i,buffer[i]);
         i++;
     };
     fflush(STDIN_FILENO);
     if (flag==1)printf("Buffer leído \n");
     float *zoom = NULL;
     zoomIN(filas, columnas, buffer, &zoom, factor, N);
-    //printBuffer(filas*factor,columnas*factor,zoom);
     //Proceso fork crea hijo    
     int pid_suavizado;    
     crearProceso(&pid_suavizado);
-    printf("pid : %d\n",pid_suavizado);
     if(pid_suavizado  == -1){
         printf("Error en syscall FORK\n");
         exit(-1);
@@ -58,7 +55,7 @@ int main(int argc, char **argv)
     else {
         close(fd[ESCRITURA]);
         dup2(fd[LECTURA], STDIN_FILENO);
-        if (flag==1){printf("hijito uwu\n");}
+        if (flag==1){printf("Se termina el proceso de zoom\n");}
         char *args[8] = {"./suavizado", argv[1], argv[2], argv[3], argv[4], argv[5],argv[6], NULL};
         execvp(args[0],args);
     }

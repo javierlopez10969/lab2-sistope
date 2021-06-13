@@ -14,13 +14,12 @@ int main(int argc, char** argv){
     int flag = atoi(argv[7]);
     if (flag == 1) {
         printf("Proceso de Lectura\n");
-        //printf("filas: %d, columnas: %d \n\n", filas, columnas);
     }
     int N = (filas * columnas * 4);
     //Creamos un buffer
     float *buffer = (float *)malloc(sizeof(float) * N);
     //Leer la imagen
-    leerArchivo(bufferNombre, filas, columnas, buffer, N);
+    leerArchivo(bufferNombre, filas, columnas, buffer, N,flag);
     //printBuffer(filas,columnas,buffer);
     //Creacion pipe
     int * fd = (int*)malloc(sizeof(int) * 2);

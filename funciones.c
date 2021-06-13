@@ -10,7 +10,7 @@
 //Funcionamiento: abre la imagen y comprueba si esto se hizo correctamente, en caso contrario se muestra un error en pantalla, poosteriormente, se lee el contenido de la imagen y
 //si la cantidad de bits difiere,significa que hubo un error en la entrega de filas y columnas, se cierra el archivo y termina la funcion
 //Salidas: un entero que muestra el termino de la funcion.
-int leerArchivo(char * pathname , int filas, int columnas,float * buffer,int N){
+int leerArchivo(char * pathname , int filas, int columnas,float * buffer,int N,int flag){
     int f1;
     if ((f1 = open(pathname,O_RDONLY)) == -1) {
         printf("Error al abrir archivo\n");
@@ -45,7 +45,7 @@ void printBuffer(int filas, int columnas, float * buffer){
 //Entradas: se indica el nombre de salida para la imagen, numero de filas y columnas, un buffer con el contenido de la imagen y la cantidad de bytes necesarias para esta.
 //Funcionamiento: se abre la imagen para que esta posteriormente pueda ser escrita, en caso de que existe un error este se especifica y se muestra en pantalla.
 //Salidas: retorna un entero el cual indica que la funcion termino.
-int escribirImagen(char * salidaName , int filas, int columnas,float * buffer,int N){
+int escribirImagen(char * salidaName , int filas, int columnas,float * buffer,int N,int flag){
 
     int f2;
     if ((f2 = open(salidaName, O_WRONLY | O_CREAT , 0644)) == -1) {
@@ -59,7 +59,8 @@ int escribirImagen(char * salidaName , int filas, int columnas,float * buffer,in
     }
 
     if(write(f2, buffer, N) != -1){
-        printf("Se ha escrito corectamente el archivo : %s\n" , salidaName);
+        if (flag==1)        
+            printf("Se ha escrito corectamente el archivo : %s\n" , salidaName);
     } 
     close(f2);
     
@@ -194,9 +195,83 @@ void suavizado(int filas, int columnas,float * buffer , float ** suavizados, int
         //Si es 
         i++;
     }
-
     *suavizados = newBuffer;
-
-
 }
-
+int transformarGrados(int grados){
+    int gradosAux= grados;
+    if (grados-360 >0){
+        while (gradosAux-360>0){
+            gradosAux = grados-360;
+        }
+    }
+    return gradosAux;
+}
+void rotar(int filas, int columnas,int grados,float * buffer , float ** rotado, int N,int flag){
+    float * newBuffer = (float*)malloc(sizeof(float)*(columnas*filas*4));
+    grados = transformarGrados(grados);
+    printf("Grados :  %d\n", grados);
+    //Iterador que recorre el nuevo buffer
+    int i = 0 ;int k = 0; int elemento;
+    //Ver que tipo de rotacion hay que hacer
+    //0 o 360 : no darlo vuelta
+    if (grados == 0 || grados%360==0){
+        printf("No rotamos\n\n");
+        newBuffer = buffer; 
+    }    
+    //270 darlo vuelta hacia la izquierda.0000
+    else if(grados%270 == 0){
+        if (flag==1)printf("rotando en 270\n");
+        i = filas -1;
+        k = 0;
+        int comienzo = filas-1;
+        while (k< filas*columnas){
+            elemento = buffer[i];
+            newBuffer[k] = elemento;
+            if (i+filas > filas*columnas){
+                i = comienzo -1;
+                comienzo = comienzo-1;
+            }else{
+                i = i +filas;
+            }
+            k++;
+        }        
+    }
+    //180 darlo vuelta de cabeza
+    else if(grados%180 == 0){
+        if (flag==1)printf("rotando en 180\n");
+        //Vamos del ultimo elemento buffer hacia el primero
+        i = filas*columnas;
+        k = 0;
+        while (i!=0){
+            elemento =  buffer[k];
+            newBuffer[i] = elemento;
+            i--;
+            k ++;
+        }
+        newBuffer [0] = buffer[filas*columnas-1];
+    }
+    //90 darlo vuelta hacia la derecha
+    else if(grados %90 == 0){
+        if (flag==1)printf("rotando en 90\n");
+        i = filas -1;
+        k = 0;
+        int comienzo = filas-1;
+        while (k< filas*columnas){
+            elemento = buffer[i];
+            newBuffer[k] = elemento;
+            if (i+filas > filas*columnas){
+                i = comienzo -1;
+                comienzo = comienzo-1;
+            }else{
+                i = i +filas;
+            }
+            k++;
+        } 
+        float * buffer2 =NULL;
+        rotar(filas,columnas,180,newBuffer, &buffer2, N,flag);
+        newBuffer = buffer2;
+    }else{
+        if (flag==1)printf("Nada : clown");
+    }
+    *rotado = newBuffer;    
+}
