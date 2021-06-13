@@ -21,21 +21,16 @@ int main(int argc, char **argv){
     float *buffer = (float *)malloc(sizeof(float) * N);
 
     if (flag==1){printf("Proceso Suavizado\n");
-    printf("filas : %d columnas : %d \n",columnas*factor,filas*factor);
-    printf("Voy a leer el buffer\n");}
+    printf("filas : %d columnas : %d \n",columnas*factor,filas*factor);}
     float rBuff[1];
     int i = 0;
     while(read(STDIN_FILENO, rBuff, sizeof(float)) > 0){
         buffer[i] = rBuff[0];
-        //printf("%d.-%f - ",i,buffer[i]);
-        //printf("%d - ",i);
         i++;
     };
     fflush(STDIN_FILENO);
-    if (flag==1)printf("Buffer leído \n");
     float * suavizados = NULL;
     suavizado(filas * factor, columnas* factor,buffer , &suavizados, N);
-    //printBuffer(filas*factor,columnas*factor,suavizados);
     //Proceso fork crea hijo    
     int pid_rotacion;    
     crearProceso(&pid_rotacion);

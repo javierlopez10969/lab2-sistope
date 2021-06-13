@@ -45,8 +45,6 @@ int main(int argc, char **argv)
     }
     else if (pid_suavizado>0){ // Padre
         //El padre escribe el buffer de la imagen mediante write
-        if (flag==1){printf("padre 7u7\n");
-        printf("tamano  %d\n", N*factor*factor);}
         close(fd[LECTURA]);
         write(fd[ESCRITURA], zoom, N*sizeof(float));
         close(fd[ESCRITURA]);

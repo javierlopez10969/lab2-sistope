@@ -25,16 +25,15 @@ int main(int argc, char **argv){
     float *buffer = (float *)malloc(sizeof(float) * N);
     float * rotado = NULL;
     if (flag==1){printf("Proceso Rotación y escritura\n");
-    printf("filas : %d columnas : %d \n",columnas*factor,filas*factor);
-    printf("Voy a leer el buffer\n");}
+    printf("filas : %d columnas : %d \n",columnas*factor,filas*factor);}
+    //lectura del buffer
     float rBuff[1];
     int i = 0;
     while(read(STDIN_FILENO, rBuff, sizeof(float)) > 0){
         buffer[i] = rBuff[0];
-        //printf("%d.-%f - ",i,buffer[i]);
-        //printf("%d - ",i);
         i++;
     };
+    //limpiar STDIN_FILENO
     fflush(STDIN_FILENO);
     if (flag==1)printf("Buffer leído \n");
     rotar(filas * factor,columnas * factor,grados,buffer , &rotado,N,flag);

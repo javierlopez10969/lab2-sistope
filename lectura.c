@@ -20,7 +20,6 @@ int main(int argc, char** argv){
     float *buffer = (float *)malloc(sizeof(float) * N);
     //Leer la imagen
     leerArchivo(bufferNombre, filas, columnas, buffer, N,flag);
-    //printBuffer(filas,columnas,buffer);
     //Creacion pipe
     int * fd = (int*)malloc(sizeof(int) * 2);
     if(pipe(fd) == -1){

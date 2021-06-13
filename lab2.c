@@ -10,7 +10,7 @@
 mostrar: etapas por las que va pasando la imagen, dimensiones de la imagen antes y despu´es de aplicar
 zoom-in, ejecuci´on finalizada.
 
-// ./lab2 -I cameraman_256x256.raw -O imagen_salida.raw -M 256 -N 256 -r 2 -g 90
+./lab2 -I cameraman_256x256.raw -O imagen_salida.raw -M 256 -N 256 -r 2 -g 90
 */
 #include <ctype.h>
 #include <stdio.h>
@@ -101,7 +101,6 @@ int main(int argc, char **argv)
     int fd[2];
     pipe(fd);
     //nuevo proceso (proceso hijo escribe, padre lee)
-
     int pid1= fork();
     //se cumple la condición cuando falla la creación de un nuevo proceso
     if(pid1 < 0){
@@ -129,13 +128,12 @@ int main(int argc, char **argv)
         sprintf(buffFactor, "%d", factor);
         sprintf(buffGrados, "%d", grados);
         sprintf(buffFlag, "%d", bandera);
-        if (bandera== 1)printf("soy el hijo y escribi el mensaje\n");
         char *args[9]={"./lectura", nombreImagen, imagenSalida, buffFilas, buffColumnas, buffFactor, buffGrados, buffFlag, NULL};     
         execvp(args[0],args);
     }
     }
     return 0;
 }
-//EJEMPLO DE USO
+//EJEMPLO DE USO:
 // make
 // ./lab2 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2

@@ -198,7 +198,9 @@ void suavizado(int filas, int columnas,float * buffer , float ** suavizados, int
     *suavizados = newBuffer;
 }
 
-
+//Entradas: un entero que representa los grados
+//Funcionamiento: si los grados superan los 360 grados, seran transformados a su equivalente entre 0 y 360 grados
+//Salidas: un entero que representa los grados
 int transformarGrados(int grados){
     int gradosAux= grados;
     while (gradosAux-360>0){
@@ -206,16 +208,22 @@ int transformarGrados(int grados){
     }
     return gradosAux;
 }
+
+//Entradas: Numero de filas y columnas, el entero con los grados, un buffer vacio, el buffer de la imagen ya rotada-
+//N que corresponde a la cantidad de bytes (filas * columnas * 4) y por ultimo la bandera para mostrar el estado actual del programa
+//Funcionamiento: con el buffer de imagen (con zoomIn y suavizado aplicado) se procede a rotar dependiendo del valor de grados en las variables de entrada. escribiendo en un nuevo
+//buffer los valores del arreglo post rotacion
+//Salidas: retorna un buffer con el contenido de la imagen cambiado de posicion (rotacion)
 void rotar(int filas, int columnas,int grados,float * buffer , float ** rotado, int N,int flag){
     float * newBuffer = (float*)malloc(sizeof(float)*(columnas*filas*4));
     grados = transformarGrados(grados);
-    printf("Grados :  %d\n", grados);
+    if (flag==1)printf("Grados :  %d\n", grados);
     //Iterador que recorre el nuevo buffer
     int i = 0 ;int k = 0; int elemento;
     //Ver que tipo de rotacion hay que hacer
     //0 o 360 : no darlo vuelta
     if (grados == 0 || grados%360==0){
-        printf("No rotamos\n\n");
+        if (flag==1)printf("No rotamos\n\n");
         newBuffer = buffer; 
     }    
     //270 darlo vuelta hacia la izquierda.0000
