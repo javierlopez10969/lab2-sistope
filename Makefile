@@ -16,3 +16,7 @@ suavizado: suavizado.c funciones.c funciones.h
 
 rotacion: rotacion.c funciones.c funciones.h
 	$(CC) funciones.c rotacion.c -o rotacion $(CFLAGS)
+
+clean:
+	rm -f *.o all
+.PHONY : clean

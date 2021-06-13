@@ -45,7 +45,6 @@ int main(int argc, char **argv){
     }
     else if (pid_rotacion>0){ // Padre
         //El padre escribe el buffer de la imagen mediante write
-        if (flag==1)printf("padre 7u7\n");
         close(fd[LECTURA]);
         write(fd[ESCRITURA], suavizados, factor*factor*columnas*filas*sizeof(float));
         close(fd[ESCRITURA]);
@@ -54,7 +53,7 @@ int main(int argc, char **argv){
     else {
         close(fd[ESCRITURA]);
         dup2(fd[LECTURA], STDIN_FILENO);
-        if (flag==1)printf("hijito uwu\n");
+
         char *args[8] = {"./rotacion", argv[1], argv[2], argv[3], argv[4], argv[5],argv[6], NULL};
         execvp(args[0],args);
     }

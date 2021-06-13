@@ -197,12 +197,12 @@ void suavizado(int filas, int columnas,float * buffer , float ** suavizados, int
     }
     *suavizados = newBuffer;
 }
+
+
 int transformarGrados(int grados){
     int gradosAux= grados;
-    if (grados-360 >0){
-        while (gradosAux-360>0){
-            gradosAux = grados-360;
-        }
+    while (gradosAux-360>0){
+            gradosAux = gradosAux-360;
     }
     return gradosAux;
 }
@@ -267,7 +267,9 @@ void rotar(int filas, int columnas,int grados,float * buffer , float ** rotado, 
             }
             k++;
         } 
+        //invertir la imagen en 180 grados para que se aplique una rotacion en 90 grados respecto a la imagen inicial.
         float * buffer2 =NULL;
+        //recursión para rotar de nuevo
         rotar(filas,columnas,180,newBuffer, &buffer2, N,flag);
         newBuffer = buffer2;
     }else{
