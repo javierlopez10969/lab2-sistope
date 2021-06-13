@@ -49,6 +49,8 @@ int main(int argc, char** argv){
         write(fd[ESCRITURA], buffer, filas*columnas*sizeof(float));
         close(fd[ESCRITURA]);
         wait(NULL);
+        free(buffer);
+        free(fd);
         
     }
 }

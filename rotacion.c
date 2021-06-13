@@ -38,4 +38,7 @@ int main(int argc, char **argv){
     if (flag==1)printf("Buffer leído \n");
     rotar(filas * factor,columnas * factor,grados,buffer , &rotado,N,flag);
     escribirImagen(nombreSalida,filas*factor, columnas*factor,rotado,N,flag);
+    free(rotado);
+    free(buffer);
+    free(fd);
 }

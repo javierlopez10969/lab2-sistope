@@ -49,6 +49,10 @@ int main(int argc, char **argv)
         write(fd[ESCRITURA], zoom, N*sizeof(float));
         close(fd[ESCRITURA]);
         wait(NULL);
+        //liberar memoria despues del proceso hijo
+        free(zoom);
+        free(buffer);
+        free(fd);
     }
     else {
         close(fd[ESCRITURA]);

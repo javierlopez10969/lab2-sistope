@@ -44,11 +44,14 @@ int main(int argc, char **argv){
         write(fd[ESCRITURA], suavizados, factor*factor*columnas*filas*sizeof(float));
         close(fd[ESCRITURA]);
         wait(NULL);
+        //liberar memoria despues del proceso hijo
+        free(suavizados);
+        free(buffer);
+        free(fd);
     }
     else {
         close(fd[ESCRITURA]);
         dup2(fd[LECTURA], STDIN_FILENO);
-
         char *args[8] = {"./rotacion", argv[1], argv[2], argv[3], argv[4], argv[5],argv[6], NULL};
         execvp(args[0],args);
     }
