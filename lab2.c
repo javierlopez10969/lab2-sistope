@@ -136,4 +136,4 @@ int main(int argc, char **argv)
 }
 //EJEMPLO DE USO:
 // make
-// ./lab2 -I cameraman_256x256.raw -Z salida_i_zoom.raw -S imagen_i_suavizado.raw -M 256 -N 256 -r 2
+// ./lab2 -I cameraman_256x256.raw -O imagen_salida.raw -M 256 -N 256 -r 2 -g 90
